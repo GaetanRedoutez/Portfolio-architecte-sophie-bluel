@@ -4,19 +4,19 @@ export async function homeFunction() {
   const projects = await fetch("http://localhost:5678/api/works").then(
     (projects) => projects.json()
   );
-  //Récupération du liens des boutons de la barre de filtre
+  //Récupération du liens des boutons de la barre de filtre -------------------------------------
   const btnAll = document.getElementById("btn-all");
   const btnObject = document.getElementById("btn-object");
   const btnAppartements = document.getElementById("btn-appartements");
   const btnHotels = document.getElementById("btn-hotels");
 
-  //Fonction pour générer le HTML de la gallerie
+  //Fonction pour générer le HTML de la gallerie -------------------------------------
   function genereGallery(selectedCategory) {
-    //Déclaration des variables de la fonction
+    //Déclaration des variables de la fonction 
     const gallerySection = document.querySelector(".gallery");
     let projectFilter = projects;
 
-    //On filtre les projets par catégories
+    //On filtre les projets par catégories 
     if (selectedCategory !== "") {
       projectFilter = projects.filter(
         (data) => data.category.name === selectedCategory
