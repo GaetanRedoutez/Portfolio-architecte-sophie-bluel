@@ -352,3 +352,11 @@ a {
 header a {
   text-decoration: none;
 }
+
+#error-message p{
+  text-align: center;
+  width: 300px;
+  margin: auto;
+  margin-bottom: 20px;
+  color: red;
+}
