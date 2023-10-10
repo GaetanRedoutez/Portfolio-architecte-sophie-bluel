@@ -353,9 +353,63 @@ header a {
   text-decoration: none;
 }
 
-#error-message p{
+#error-message p {
   text-align: center;
   width: 300px;
   margin: auto;
   margin-bottom: 20px;
+}
+
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 20%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  left: 0;
+  top: 0;
+}
+
+.modal-content {
+  background-color: white;
+  width: 630px;
+  height: 690px;
+  border-radius: 30px;
+  border: 1px solid #000000;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}
+
+.editor-mode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  width: 100%;
+  height: 40px;
+  background-color: #000000;
+  color:white;
+}
+
+.btn-close-modal{
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: end;
+  margin: 20px 20px 20px 0;
+}
+
+.modal-title{
+  text-align: center;
+  font-size: 26px;
+}
+
+.logout{
+  display: none;
 }

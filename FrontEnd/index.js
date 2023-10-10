@@ -1,27 +1,25 @@
 import { homeFunction } from "./app/home.js";
 import { loginFunction } from "./app/login.js";
+import { Modal } from "./app/modal.js";
 
+const homeLocation = window.location.pathname;
+const filterBar = document.querySelector(".projects-filter");
+const btnModal = document.querySelector(".btn-modal");
+const editorMode = document.querySelector('.editor-mode')
+const navLogout = document.querySelector('.logout')
+const navLogin = document.querySelector('.login')
 
+if (homeLocation === "/login.html") {
+  loginFunction().then(() => {});
+} else homeFunction();
 
-let userId = 0;
-let userToken = "responseData.token";
-let connected =false;
+const userConnected = window.sessionStorage.getItem("userId");
+console.log(userConnected);
+if (userConnected !== null) {
+  filterBar.style.visibility = "hidden";
+  editorMode.style.display = "flex";
+  navLogout.style.display = "contents";
+  navLogin.style.display = "none";
 
-loginFunction().then((responseData) => {
-  window.sessionStorage.clear()
-  console.log(window.sessionStorage);
-  userId = responseData.userId;
-  userToken = responseData.token;
-  console.log("User Id :", userId);
-  console.log("User Token :", userToken);
-  if (userId !== 0 && userToken !== "") {
-    window.sessionStorage.setItem('userId',userId);
-    window.sessionStorage.setItem('userToken',userToken);
-    console.log(window.sessionStorage);
-  }
-});
- if (userId !== 0 && userToken !== "") {
-    connected=true;
-    
-  }
-homeFunction(connected);
+  Modal();
+} else btnModal.style.display = "none";

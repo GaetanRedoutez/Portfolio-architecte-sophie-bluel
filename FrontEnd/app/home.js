@@ -3,7 +3,7 @@ export async function homeFunction() {
   //Récupération des données WORKS via l'API -------------------------------------
   const projects = await fetch("http://localhost:5678/api/works").then(
     (projects) => projects.json()
-  );
+  );console.log(projects);
   //Récupération du liens des boutons de la barre de filtre -------------------------------------
   const btnAll = document.getElementById("btn-all");
   const btnObject = document.getElementById("btn-object");
@@ -11,7 +11,7 @@ export async function homeFunction() {
   const btnHotels = document.getElementById("btn-hotels");
 
   //Fonction pour générer le HTML de la gallerie -------------------------------------
-  function genereGallery(selectedCategory) {
+   function genereGallery(selectedCategory) {
     //Déclaration des variables de la fonction 
     const gallerySection = document.querySelector(".gallery");
     let projectFilter = projects;

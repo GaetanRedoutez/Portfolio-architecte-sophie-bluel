@@ -13,13 +13,16 @@
 </head>
 
 <body>
+  <div class="editor-mode">Mode édition</div>
   <header>
+    
     <h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
     <nav>
       <ul>
         <li><a href="index.html">projets</a></li>
         <li><a href="#contact">contact</a></li>
-        <li><a href="login.html">login</a></li>
+        <li class="login"><a href="login.html">login</a></li>
+        <li class="logout"><a href="#">logout</a></li>
         <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
       </ul>
     </nav>
@@ -48,9 +51,16 @@
         </p>
       </article>
     </section>
+    
+    <div id="modal">
+      <div class="modal-content">
+        <div class="btn-close-modal">&times;</div>
+        <div class="modal-title">Galerie photo</div>
+      </div>
+    </div>
 
     <section id="portfolio">
-      <h2>Mes Projets</h2>
+      <h2>Mes Projets<button class="btn-modal">modifier</button></h2>
 
       <!-- Ajout d'une barre de filtre pour les projets -->
       <div class="projects-filter">
@@ -68,6 +78,7 @@
 
       <div class="gallery"></div>
     </section>
+
     <section id="contact">
       <h2>Contact</h2>
       <p>Vous avez un projet ? Discutons-en !</p>
