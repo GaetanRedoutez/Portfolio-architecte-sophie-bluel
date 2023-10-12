@@ -18,26 +18,35 @@
     <nav>
       <ul>
         <li><a href="index.html">projets</a></li>
-        <li><a href="index.html#contact">contact</a></li>
-        <li><a href="login.html">login</a></li>
-        <li><a href="#"><img src="./assets/icons/instagram.png" alt="Instagram" /></a></li>
+        <li><a href="#contact">contact</a></li>
+        <li rel="js-login" class="login"><a href="login.html">login</a></li>
+        <li rel="js-logout" class="logout"><a href="#">logout</a></li>
+        <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
       </ul>
     </nav>
   </header>
+
   <main>
-    <div id="login">
+    <div rel="js-login" class="login">
       <h2>Login</h2>
-      <form id="login-form">
+
+      <!-- User input for login  -->
+      <form rel="js-login-form" class="login-form">
         <label for="username">E-mail</label>
-        <input type="text" id="username" name="username">
+        <input rel="js-username" type="text" id="username" name="username">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password">
+        <input rel="js-password" type="password" id="password" name="password">
         <button type="submit">Se connecter</button>
       </form>
-      <div id="error-message"></div>
+
+      <!-- Display a status message when the login request return a value -->
+      <div rel="js-login-status" class="login-status"><p></p></div>
+
+      <!-- Forgot password -->
       <p>
         <a href="#">Mot de passe oublié ?</a>
       </p>
+
     </div>
   </main>
   <footer>
@@ -47,6 +56,7 @@
       </ul>
     </nav>
   </footer>
+
   <script type="module" src="index.js"></script>
 </body>
 

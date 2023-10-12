@@ -10,24 +10,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet" />
   <meta name="description" content="" />
   <link rel="stylesheet" href="./assets/style.css" />
+  <script src="https://kit.fontawesome.com/3a68270698.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="editor-mode">Mode édition</div>
+  <!-- Bar to show we're in editor mode at the top of the screen -->
+  <div rel="js-editor-mode" class="editor-mode"><i class="fa-solid fa-pen-to-square"></i>Mode édition</div>
+  
   <header>
-    
+
     <h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
+
+    <!-- Navigation bar -->
     <nav>
       <ul>
         <li><a href="index.html">projets</a></li>
         <li><a href="#contact">contact</a></li>
-        <li class="login"><a href="login.html">login</a></li>
-        <li class="logout"><a href="#">logout</a></li>
+        <li rel="js-login" class="login"><a href="login.html">login</a></li>
+        <li rel="js-logout" class="logout"><a href="#">logout</a></li>
         <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
       </ul>
     </nav>
+
   </header>
+
   <main>
+    <!-- Introduction section -->
     <section id="introduction">
       <figure>
         <img src="./assets/images/sophie-bluel.png" alt="" />
@@ -35,50 +43,49 @@
       <article>
         <h2>Designer d'espace</h2>
         <p>
-          Je raconte votre histoire, je valorise vos idées. Je vous accompagne
-          de la conception à la livraison finale du chantier.
+          Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.
         </p>
         <p>
-          Chaque projet sera étudié en commun, de façon à mettre en valeur les
-          volumes, les matières et les couleurs dans le respect de l’esprit
-          des lieux et le choix adapté des matériaux. Le suivi du chantier
-          sera assuré dans le souci du détail, le respect du planning et du
+          Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit
+          des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du
           budget.
         </p>
         <p>
-          En cas de besoin, une équipe pluridisciplinaire peut-être constituée
-          : architecte DPLG, décorateur(trice)
+          En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)
         </p>
       </article>
     </section>
-    
-    <div id="modal">
-      <div class="modal-content">
-        <div class="btn-close-modal">&times;</div>
-        <div class="modal-title">Galerie photo</div>
+
+    <!-- Modal to modify the project list -->
+    <div rel="js-modal" class="modal">
+      <div class="modal-container">
+        <div class="close-modal"><p rel="js-close-modal">&times;</p></div>
+        <div rel="js-modal-content" class="modal-content"></div>
+        <div class="add-project"><button class="btn-add-project" rel="js-btn-add-project">Ajouter une photo</button></div>
       </div>
+    
     </div>
 
+    <!-- Portfolio with the projects and the filter bar -->
     <section id="portfolio">
-      <h2>Mes Projets<button class="btn-modal">modifier</button></h2>
+      <h2>Mes Projets<button rel="js-open-modal" class="btn-modal"><i class="fa-solid fa-pen-to-square"></i>modifier</button></h2>
 
-      <!-- Ajout d'une barre de filtre pour les projets -->
-      <div class="projects-filter">
+      <!-- Filter bar to select the wanted category -->
+      <div rel="js-projects-filter" class="projects-filter">
         <ul>
-          <li><button id="btn-all" class="btn-filter">Tous</button></li>
-          <li><button id="btn-object" class="btn-filter">Objets</button></li>
-          <li>
-            <button id="btn-appartements" class="btn-filter">Appartements</button>
-          </li>
-          <li>
-            <button id="btn-hotels" class="btn-filter">Hôtels & restaurants</button>
-          </li>
+          <li><button rel="js-btn-all" data-filter="all" class="btn-filter">Tous</button></li>
+          <li><button rel="js-btn-object" data-filter="1" class="btn-filter">Objets</button></li>
+          <li><button rel="js-btn-apartments" data-filter="2" class="btn-filter">Appartements</button></li>
+          <li><button rel="js-btn-hotels" data-filter="3" class="btn-filter">Hôtels & restaurants</button></li>
         </ul>
       </div>
 
-      <div class="gallery"></div>
+      <!-- Div to complete with JS to show the project -->
+      <div rel="js-gallery" class="gallery"></div>
+
     </section>
 
+    <!-- Contact section -->
     <section id="contact">
       <h2>Contact</h2>
       <p>Vous avez un projet ? Discutons-en !</p>
@@ -92,6 +99,7 @@
         <input type="submit" value="Envoyer" />
       </form>
     </section>
+
   </main>
   <footer>
     <nav>
