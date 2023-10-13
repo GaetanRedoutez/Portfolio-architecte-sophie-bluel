@@ -57,13 +57,31 @@
     </section>
 
     <!-- Modal to modify the project list -->
+    
     <div rel="js-modal" class="modal">
       <div class="modal-container">
         <div class="close-modal"><p rel="js-close-modal">&times;</p></div>
-        <div rel="js-modal-content" class="modal-content"></div>
-        <div class="add-project"><button class="btn-add-project" rel="js-btn-add-project">Ajouter une photo</button></div>
+        <div rel="js-back-modal" class="back-modal"><i class="fa-solid fa-left-long fa-2xl"></i></div>
+        <div rel="js-modal-title" class="modal-title"></div>
+        <div rel="js-modal-content" class="modal-content">
+          <div rel="js-modal-gallery" class="modal-gallery"></div>
+          <form>
+            <input rel="js-input-file" type="file" name="projet" accept="image/png, image/jpeg" required/>
+            <label for="title">Titre</label>
+            <input rel="js-input-name" type="text" name="title" required>
+            <label for="category">Catégorie</label>
+            <select rel="js-input-category" name="category" required></select>
+            </input>
+            <div rel="js-valid-project" class="valid-project">
+              <button rel="js-btn-valid-project" type="submit" class="btn-valid-project"  disabled="disabled">Valider</button>
+            </div>
+          </form>
+        </div>
+        <div rel="js-add-project" class="add-project">
+          <button class="btn-add-project" rel="js-btn-add-project">Ajouter une photo</button>
+        </div>
+        
       </div>
-    
     </div>
 
     <!-- Portfolio with the projects and the filter bar -->

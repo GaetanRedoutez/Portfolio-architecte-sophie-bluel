@@ -327,7 +327,9 @@ button:hover {
   margin: 2em 0 1em 0;
 }
 
-.login button, .btn-add-project {
+.login button, 
+.btn-add-project, 
+.btn-valid-project {
   font-family: "Syne";
   font-weight: 700;
   color: white;
@@ -376,13 +378,13 @@ header a {
 
 .modal {
   display: none;
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 9;
+  z-index: 10;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal-container {
@@ -426,8 +428,8 @@ header a {
   display: none;
 }
 
-.add-project {
-  display: flex;
+.add-project, .valid-project {
+  display: none;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
@@ -454,21 +456,22 @@ header a {
   position: relative;
 }
 
-
-.modal-add {
-  background-color: white;
-  width: 630px;
-  height: fit-content;
-  border-radius: 20px;
-  padding: 5px;
-  border: 1px solid #000000;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5em;
-
-  /* display: none; */
-  position: fixed;
-  z-index: 100;
-  top: 20%;
+.btn-valid-project:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
 }
 
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 25px;
+  margin: 25px;
+}
+
+.fa-left-long{
+  padding: 10px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
