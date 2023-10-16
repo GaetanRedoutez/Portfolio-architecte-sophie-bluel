@@ -15,7 +15,7 @@ let username="";
 let password="";
 
 // Don't execute this if we're not on the login page
-if (window.location.pathname == '/login.html'){
+if (window.location.pathname.includes('/login.html')){
   //Detect input username event
   inputUsername.addEventListener('input',(e) => {
     username = e.target.value;

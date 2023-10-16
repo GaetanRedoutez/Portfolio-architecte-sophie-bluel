@@ -8,7 +8,7 @@ const btnHotels = document.querySelector('[rel=js-btn-hotels]');
 const gallery = document.querySelector('[rel=js-gallery]');
 
 // Didn't execute this if we're on the login page
-if (window.location.pathname !== '/login.html'){
+if (!window.location.pathname.includes('/login.html')){
   //Detect filter button event
   btnAll.addEventListener('click', applyFilter);
   btnObject.addEventListener('click', applyFilter);

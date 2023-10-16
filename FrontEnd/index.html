@@ -66,11 +66,19 @@
         <div rel="js-modal-content" class="modal-content">
           <div rel="js-modal-gallery" class="modal-gallery"></div>
           <form>
-            <input rel="js-input-file" type="file" name="projet" accept="image/png, image/jpeg" required/>
-            <label for="title">Titre</label>
-            <input rel="js-input-name" type="text" name="title" required>
-            <label for="category">Catégorie</label>
-            <select rel="js-input-category" name="category" required></select>
+            <div class="form-image">
+              <div class="before-preview">
+                <div class="preview-image"><i class="fa-regular fa-image fa-5x"></i></div>
+                <label for="image"><p class="form-image-add">+ Ajouter une photo</p></label>
+                <p>jpg, png : 4mo max</p>
+              </div>
+              <img class="preview" src="" alt="">
+            </div>
+            <input rel="js-input-file" type="file" name="image" accept="image/png, image/jpeg" id="image" required/>
+            <label for="title" class="form-label">Titre</label>
+            <input rel="js-input-name" type="text" name="title" id="title" required>
+            <label for="category" class="form-label">Catégorie</label>
+            <select rel="js-input-category" name="category" id="category" required></select>
             </input>
             <div rel="js-valid-project" class="valid-project">
               <button rel="js-btn-valid-project" type="submit" class="btn-valid-project"  disabled="disabled">Valider</button>
