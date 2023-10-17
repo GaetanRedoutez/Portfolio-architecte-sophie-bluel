@@ -516,6 +516,8 @@ header a {
   margin-right: auto;
   border-radius: 5px;
   background-color: #E8F1F6;
+  display: flex;
+  justify-content: center;
 }
 
 .form-image-add{
@@ -547,4 +549,9 @@ header a {
 
 .preview{
   height: 100%;
+  display: none;
+}
+
+.form-image label {
+  cursor: pointer;
 }

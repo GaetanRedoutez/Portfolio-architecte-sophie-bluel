@@ -28,3 +28,17 @@ if (window.location.pathname.includes('/login.html')){
   }
 
 
+/* ---------- Question ------------
+ 
+  Comment faire un refresh propre des galleries principal & modal sans appeler les fcts de création?
+
+  Git pull comment ça fonctionne exactement car je l'utilise de manière très simple 
+    pour récup mes modifs entre mes 2 pc mais j'ai vu qu'il y avait plein de commande possible.
+
+  Vérifier la fonction de la preview d'image je suis pas sûr d'avoir utiliser la bonne méthode
+
+  Vérifier la méthode de fonctionnement de la modal
+  
+  Vérifier l'appel de la fonction de refresh
+
+*/

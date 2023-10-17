@@ -14,6 +14,8 @@ const modalForm = document.querySelector('[rel=js-modal-content] form');
 const fileForm = document.querySelector('[rel=js-input-file]');
 const nameForm = document.querySelector('[rel=js-input-name]');
 const categoriesForm = document.querySelector('[rel=js-input-category]');
+const beforePreview = document.querySelector('[rel=js-before-preview]');
+const preview = document.querySelector('[rel=js-preview]');
 
 const modalAdd = document.querySelector('[rel=js-btn-add-project]');
 const modalValid = document.querySelector('[rel=js-btn-valid-project]');
@@ -87,6 +89,21 @@ async function createModal (){
   } )
 }
 
+function showModalGallery() {
+  //Display the modal 
+  divModal.style.display = "initial";
+  
+  //Modify title to the second part
+  modalTitle.innerHTML = "Gallerie photo"
+  
+  // Hide and show the rightand wrong button
+  modalDivAdd.style.display='flex';
+  modalGallery.style.display='grid';
+  backModal.style.display ='none'
+  modalDivValid.style.display ='none';
+  modalForm.style.display ='none';
+}
+
 // Create the second page of the modal and a list of category by using a request to get all category
 async function showModalAdd (){
   //Modify title to the second part
@@ -101,28 +118,13 @@ async function showModalAdd (){
 }
 
 // Manage the modal closing
-function manageCloseModal(){
+function closeModalFunction(){
   divModal.style.display = "none";
   modalGallery.innerHTML = "";
 }
 
-function showModalGallery() {
-  //Display the modal 
-  divModal.style.display = "initial";
-  
-  //Modify title to the second part
-  modalTitle.innerHTML = "Gallerie photo"
-
-  // Hide and show the rightand wrong button
-  modalDivAdd.style.display='flex';
-  modalGallery.style.display='grid';
-  backModal.style.display ='none'
-  modalDivValid.style.display ='none';
-  modalForm.style.display ='none';
-}
-
 // Control if the form have all of is input complete
-function controlRequiredForm(){
+function controlForm(){
   const required = modalForm.querySelectorAll('[required]')
   const requiredInput = Array.from (required).every(input=>input.value.trim() !== "");
   if (!requiredInput){
@@ -133,37 +135,42 @@ function controlRequiredForm(){
   console.log(requiredInput);
 }
 
-// Configure headers and body for an add request
-function configAddRequest(token){
+function showWorkPreview(){
+  preview.src = URL.createObjectURL(fileForm.files[0]);
+  beforePreview.style.display = 'none';
+  preview.style.display = 'block';
+}
+
+// Request to add a new work
+async function addRequest (url,token,form,cat){
   // Setup the body for a request API
-  const formData = new FormData(modalForm);
+  const formData = new FormData(form);
 
   // Convert the category value in integer
-  formData.set('category',parseInt(categoriesForm.value));
+  formData.set('category',parseInt(cat.value));
 
   // Setup the request options for add request
+  const option = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  };
+
+  // If valid the new project then launch the request, else go out of the function
   if (confirm("Confirmer ajout du projet " + formData.get('title'))) {
-    return {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    };
+    const response = await httpPost(url,option);
+    console.log(response);
   } else {
     return false;
   }
+  
 }
 
-async function addRequest (){
-  const addOption = configAddRequest(UserToken);
-  console.log(addOption);
-  const addResponse = await httpPost(urlWorks,addOption);
-  console.log(addResponse);
-}
-
-async function deleteWorks (id,token){
-  const urlDelete = `${urlWorks}/${id}`
+// Request to delete a work
+async function deleteWorks (url,id,token){
+  const urlDelete = `${url}/${id}`;
   const options = {
     method: 'DELETE',
     headers: {
@@ -173,7 +180,8 @@ async function deleteWorks (id,token){
   };
 
   if (confirm("Confirmer surppression du projet " + id)) {
-    return response = await httpPost(urlDelete,options);
+    response = await httpPost(urlDelete,options);
+    return true;
   } else {
     return false;
   }
@@ -182,18 +190,22 @@ async function deleteWorks (id,token){
 if (!window.location.pathname.includes('/login.html')){
   openModal.addEventListener('click',  showModalGallery);
   
-  closeModal.addEventListener('click', manageCloseModal);
+  closeModal.addEventListener('click', closeModalFunction);
 
   modalAdd.addEventListener('click',showModalAdd);
 
   backModal.addEventListener('click',showModalGallery);
 
-  modalForm.addEventListener('input',controlRequiredForm);
+  modalForm.addEventListener('input',controlForm);
 
-  modalValid.addEventListener('click', async(e)=>{
+  modalValid.addEventListener('click', (e)=>{
     e.preventDefault();
-    addRequest ();
+    addRequest (urlWorks,UserToken,modalForm,categoriesForm).then(()=>{
+      //refresh & clean form
+    });
   })
+
+  fileForm.addEventListener('change',showWorkPreview)
 }
 
 
@@ -203,9 +215,13 @@ export function manageModal() {
     trashs.forEach ((trash) => {   
       trash.addEventListener('click',(e)=>{
         const id = e.target.getAttribute('data-id');
-        deleteWorks(id,UserToken); 
+        deleteWorks(urlWorks,id,UserToken).then(()=>{
+          //refresh
+        }); 
     });
     })
-  })
-  
+  }) 
 }
+
+
+

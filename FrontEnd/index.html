@@ -67,12 +67,14 @@
           <div rel="js-modal-gallery" class="modal-gallery"></div>
           <form>
             <div class="form-image">
-              <div class="before-preview">
+              <div rel="js-before-preview" class="before-preview">
                 <div class="preview-image"><i class="fa-regular fa-image fa-5x"></i></div>
                 <label for="image"><p class="form-image-add">+ Ajouter une photo</p></label>
                 <p>jpg, png : 4mo max</p>
               </div>
-              <img class="preview" src="" alt="">
+              <label for="image">
+                <img rel="js-preview" class="preview" src="" alt="">
+              </label>
             </div>
             <input rel="js-input-file" type="file" name="image" accept="image/png, image/jpeg" id="image" required/>
             <label for="title" class="form-label">Titre</label>
