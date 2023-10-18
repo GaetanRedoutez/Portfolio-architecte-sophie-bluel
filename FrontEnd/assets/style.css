@@ -376,6 +376,13 @@ header a {
   color: white;
 }
 
+.btn-modal{
+  margin-left: 10px;
+  background-color: transparent;
+  border: transparent;
+  vertical-align: middle;
+}
+
 .modal {
   display: none;
   background-color: rgba(0, 0, 0, 0.3);
@@ -438,8 +445,7 @@ header a {
   border-top : 1px solid grey;
 }
 
-.fa-solid {
-  cursor: pointer;
+.fa-solid, .fa-regular {
   margin: 5px;
 }
 

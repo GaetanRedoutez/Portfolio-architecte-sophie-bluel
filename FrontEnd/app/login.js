@@ -45,7 +45,7 @@ function configLoginRequest (usr,pwd){
 }
 
 function confirmConnection (token){
-  if (token !== ''){
+  if (token !== '' && token !== undefined){
     loginStatus.innerHTML = "Connecté";
     loginStatus.style.color = "green";
     setTimeout(() => {

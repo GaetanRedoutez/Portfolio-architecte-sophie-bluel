@@ -35,34 +35,38 @@ async function applyFilter(e) {
       work.style.display = 'none';
     }
   })
+}
 
+export function addOneHomeWork(data){
+  //Set the image parameter
+  const image = document.createElement('img');
+  image.src = data.imageUrl;
+  image.alt = data.title;
+
+  //Set the caption parameter
+  const caption = document.createElement('figcaption');
+    caption.innerHTML = data.title;
+
+  //Set the category and link image and caption to the figure
+  const figure = document.createElement('figure');
+    figure.setAttribute('rel',`js-work-${data.id}`);
+    figure.dataset.id = data.id;
+    figure.dataset.category = data.categoryId;
+    figure.append(image);
+    figure.append(caption);
+
+  //Link the figure to the gallery
+  gallery.append(figure);
 }
 
 export async function manageHomeGallery() {
   
   //Retrieve data
   const works = await httpGet(urlWorks);
+  console.log(works);
   
   //Create all the figure
   Array.from (works, work=>{
-
-    //Set the image parameter
-    const image = document.createElement('img');
-          image.src = work.imageUrl;
-          image.alt = work.title;
-
-    //Set the caption parameter
-    const caption = document.createElement('figcaption');
-          caption.innerHTML = work.title;
-
-    //Set the category and link image and caption to the figure
-    const figure = document.createElement('figure');
-          figure.dataset.category = work.category.id;
-          figure.append(image);
-          figure.append(caption);
-    
-    //Link the figure to the gallery
-    gallery.append(figure);
-    
+    addOneHomeWork(work);
   })
 }

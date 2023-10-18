@@ -16,21 +16,20 @@ const modalGallery = document.querySelector("[rel=js-modal-gallery]");
 if (window.location.pathname.includes('/login.html')){
   manageLogin();
 } else 
-  {manageHomeGallery();
-    
-  // Modify content if user is connected
-  if (userConnected !== null) {
-    editorMode.style.display = "flex";
-    navLogout.style.display = "contents";
-    navLogin.style.display = "none";
-    manageModal();
-  } else btnModal.style.display = "none";
+  {
+    manageHomeGallery();
+    // Modify content if user is connected
+    if (userConnected !== null) {
+      editorMode.style.display = "flex";
+      navLogout.style.display = "contents";
+      navLogin.style.display = "none";
+      manageModal();
+    } else btnModal.style.display = "none";
   }
 
 
-/* ---------- Question ------------
- 
-  Comment faire un refresh propre des galleries principal & modal sans appeler les fcts de création?
+/* 
+  ---------- Question ------------
 
   Git pull comment ça fonctionne exactement car je l'utilise de manière très simple 
     pour récup mes modifs entre mes 2 pc mais j'ai vu qu'il y avait plein de commande possible.
@@ -38,7 +37,15 @@ if (window.location.pathname.includes('/login.html')){
   Vérifier la fonction de la preview d'image je suis pas sûr d'avoir utiliser la bonne méthode
 
   Vérifier la méthode de fonctionnement de la modal
-  
-  Vérifier l'appel de la fonction de refresh
 
-*/
+  Comment sortir l'event listener du .then de createModal() pour que lorsqu'on ajoute un projet le bouton de suppression soit actif
+
+  ---------- Reste à faire ------------
+
+  Fermer la modal sur clique en dehors
+
+  Pouvoir supprimer un projet que l'on vient d'ajouter sans dupliquer les events listener
+
+
+
+  */
