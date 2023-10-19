@@ -1,11 +1,11 @@
 import { httpGet } from "./request.js";
 
 //Find HTML Node
-const btnAll = document.querySelector('[rel=js-btn-all]');
-const btnObject = document.querySelector('[rel=js-btn-object]');
+const btnAll        = document.querySelector('[rel=js-btn-all]');
+const btnObject     = document.querySelector('[rel=js-btn-object]');
 const btnapartments = document.querySelector('[rel=js-btn-apartments]');
-const btnHotels = document.querySelector('[rel=js-btn-hotels]');
-const gallery = document.querySelector('[rel=js-gallery]');
+const btnHotels     = document.querySelector('[rel=js-btn-hotels]');
+const gallery       = document.querySelector('[rel=js-gallery]');
 
 // Didn't execute this if we're on the login page
 if (!window.location.pathname.includes('/login.html')){
@@ -37,33 +37,37 @@ async function applyFilter(e) {
   })
 }
 
+/**
+ * Create a work for home gallery
+ * 
+ * @param {work} data Represent a work object
+ * @returns {void}
+ */
 export function addOneHomeWork(data){
   //Set the image parameter
   const image = document.createElement('img');
-  image.src = data.imageUrl;
-  image.alt = data.title;
+        image.src = data.imageUrl;
+        image.alt = data.title;
 
   //Set the caption parameter
   const caption = document.createElement('figcaption');
-    caption.innerHTML = data.title;
+        caption.innerHTML = data.title;
 
   //Set the category and link image and caption to the figure
   const figure = document.createElement('figure');
-    figure.setAttribute('rel',`js-work-${data.id}`);
-    figure.dataset.id = data.id;
-    figure.dataset.category = data.categoryId;
-    figure.append(image);
-    figure.append(caption);
+        figure.setAttribute('rel',`js-work-${data.id}`);
+        figure.dataset.id = data.id;
+        figure.dataset.category = data.categoryId;
+        figure.append(image);
+        figure.append(caption);
 
   //Link the figure to the gallery
   gallery.append(figure);
 }
 
 export async function manageHomeGallery() {
-  
   //Retrieve data
   const works = await httpGet(urlWorks);
-  console.log(works);
   
   //Create all the figure
   Array.from (works, work=>{

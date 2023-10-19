@@ -10,24 +10,31 @@ const logout = document.querySelector("[rel=js-logout]");
 // Setup the url to access the login API
 const urlLogin = "http://localhost:5678/api/users/login";
 
-//Declaration variable
-let username="";
-let password="";
+//Declaration variable 
+let username = "";
+let password = "";
 
 // Don't execute this if we're not on the login page
-if (window.location.pathname.includes('/login.html')){
+if (window.location.pathname.includes('/login.html')) {
   //Detect input username event
-  inputUsername.addEventListener('input',(e) => {
+  inputUsername.addEventListener('input', (e) => {
     username = e.target.value;
   });
 
   //Detect input password event
-  inputPassword.addEventListener('input',(e) => {
+  inputPassword.addEventListener('input', (e) => {
     password = e.target.value;
   });
 }
 
-function configLoginRequest (usr,pwd){
+/**
+ * Configure option for a login request
+ * 
+ * @param {Email} usr Represent user email
+ * @param {Password} pwd Represent user password
+ * @returns {option} Returns request option
+ */
+function configLoginRequest(usr, pwd) {
   // Setup the body for a request to the login API
   const bodyRequest = JSON.stringify({
     email: usr, //sophie.bluel@test.tld
@@ -44,8 +51,12 @@ function configLoginRequest (usr,pwd){
   };
 }
 
-function confirmConnection (token){
-  if (token !== '' && token !== undefined){
+/**
+ * 
+ * @param {UserToken} token Token returned by API
+ */
+function confirmConnection(token) {
+  if (token !== '' && token !== undefined) {
     loginStatus.innerHTML = "Connecté";
     loginStatus.style.color = "green";
     setTimeout(() => {
@@ -66,12 +77,12 @@ export async function manageLogin() {
     window.sessionStorage.clear();
 
     //Load login request config
-    const loginOption = configLoginRequest (username,password);
-    const logResponse = await httpPost(urlLogin,loginOption);
+    const loginOption = configLoginRequest(username, password);
+    const logResponse = await httpPost(urlLogin, loginOption);
 
     //Set session storage with user data
-    window.sessionStorage.setItem("userId",logResponse.userId);
-    window.sessionStorage.setItem("userToken",logResponse.token);
+    window.sessionStorage.setItem("userId", logResponse.userId);
+    window.sessionStorage.setItem("userToken", logResponse.token);
 
     //Connection status
     confirmConnection(logResponse.token);
@@ -80,14 +91,14 @@ export async function manageLogin() {
 
 
 //Simul logout 
-logout.addEventListener('click', async (e)=>{
+logout.addEventListener('click', async (e) => {
   e.preventDefault();
   //Reset sessionStorage
   window.sessionStorage.clear();
 
   //Load login request config
-  const loginOption = configLoginRequest ("","");
-  const logResponse = await httpPost(urlLogin,loginOption);
+  const loginOption = configLoginRequest("", "");
+  const logResponse = await httpPost(urlLogin, loginOption);
 
   window.location.reload();
 })

@@ -2,24 +2,25 @@ import { addOneHomeWork } from './home.js';
 import { httpDelete, httpGet, httpPost } from './request.js';
 
 //Find HTML Node
-const openModal = document.querySelector('[rel=js-open-modal]');
-const closeModal = document.querySelector('[rel=js-close-modal]');
-const backModal = document.querySelector('[rel=js-back-modal]');
+const openModal      = document.querySelector('[rel=js-open-modal]');
+const closeModal     = document.querySelector('[rel=js-close-modal]');
+const backModal      = document.querySelector('[rel=js-back-modal]');
 
-const divModal = document.querySelector('[rel=js-modal]');
-const modalTitle = document.querySelector('[rel=js-modal-title]');
-const modalGallery = document.querySelector('[rel=js-modal-gallery]');
+const divModal       = document.querySelector('[rel=js-modal]');
+const modalTitle     = document.querySelector('[rel=js-modal-title]');
+const modalGallery   = document.querySelector('[rel=js-modal-gallery]');
 
-const modalForm = document.querySelector('[rel=js-modal-content] form');
-const fileForm = document.querySelector('[rel=js-input-file]');
-const beforePreview = document.querySelector('[rel=js-before-preview]');
-const preview = document.querySelector('[rel=js-preview]');
+const modalForm      = document.querySelector('[rel=js-modal-content] form');
+const fileForm       = document.querySelector('[rel=js-input-file]');
 const categoriesForm = document.querySelector('[rel=js-input-category]');
 
-const modalAdd = document.querySelector('[rel=js-btn-add-project]');
-const modalValid = document.querySelector('[rel=js-btn-valid-project]');
-const modalDivAdd = document.querySelector('[rel=js-add-project]');
-const modalDivValid = document.querySelector('[rel=js-valid-project]');
+const beforePreview  = document.querySelector('[rel=js-before-preview]');
+const preview        = document.querySelector('[rel=js-preview]');
+
+const modalAdd       = document.querySelector('[rel=js-btn-add-project]');
+const modalDivAdd    = document.querySelector('[rel=js-add-project]');
+const modalValid     = document.querySelector('[rel=js-btn-valid-project]');
+const modalDivValid  = document.querySelector('[rel=js-valid-project]');
 
 // Retrieve log data in the session storage
 const UserToken = window.sessionStorage.getItem('userToken');
@@ -28,29 +29,43 @@ const UserToken = window.sessionStorage.getItem('userToken');
 const urlWorks = 'http://localhost:5678/api/works';
 const urlCategories = 'http://localhost:5678/api/categories';
 
-
+/**
+ * Create a work in a modal
+ * 
+ * @param {work} data Represent a work object
+ * @returns {void}
+ */
 function addOneModalWork(data){
   //Set the image parameter
   const image = document.createElement('img');
-  image.src = data.imageUrl;
-  image.alt = data.title;
+        image.src = data.imageUrl;
+        image.alt = data.title;
 
-  //Set the trash icon from fontawesome
+  //Set the trash icon from Font Awesome
   const trash = document.createElement('i')
-    trash.className = "fa-solid fa-trash-can"
-    trash.dataset.id = data.id;
+        trash.className = "fa-solid fa-trash-can"
+        trash.dataset.id = data.id;
     
   //Set the category and link image and caption to the figure
   const figure = document.createElement('figure');
-    figure.setAttribute('rel',`js-work-${data.id}`);
-    figure.append(image);
-    figure.append(trash);
+        figure.setAttribute('rel',`js-work-${data.id}`);
+        figure.append(image);
+        figure.append(trash);
 
   modalGallery.append(figure);
+
+  trash.addEventListener('click', e => {
+    const id = e.target.getAttribute('data-id');
+    deleteWorks(id,UserToken);
+  })
 }
 
-//Create gallery by using a request to get all works
-async function createModal (){  
+/**
+ * Create the modal content (gallery + category list)
+ * 
+ * @returns {void}
+ */
+export async function createModal (){  
   // Retrieve works data
   const works = await httpGet(urlWorks);
 
@@ -63,7 +78,7 @@ async function createModal (){
   categoriesForm.innerHTML = "";
 
   const chooseOption = document.createElement('option');
-  chooseOption.innerHTML = "";
+        chooseOption.innerHTML = "";
 
   categoriesForm.append(chooseOption);
 
@@ -73,13 +88,18 @@ async function createModal (){
   //Create a list of category
   Array.from (categories, category =>{
   const option = document.createElement('option');
-      option.innerHTML = category.name;
-      option.value = category.id;
+        option.innerHTML = category.name;
+        option.value = category.id;
 
   categoriesForm.append(option)
   } )
 }
 
+/**
+ * Display the modal gallery and hide the form
+ * 
+ * @returns {void}
+ */
 function showModalGallery() {
   //Display the modal 
   divModal.style.display = "initial";
@@ -96,7 +116,11 @@ function showModalGallery() {
 
 }
 
-// Create the second page of the modal and a list of category by using a request to get all category
+/**
+ * Display the modal form and hide the gallery
+ * 
+ * @returns {void}
+ */
 async function showModalAdd (){
   // Reset the form
   modalForm.reset();
@@ -104,7 +128,7 @@ async function showModalAdd (){
   //Modify title to the second part
   modalTitle.innerHTML = "Ajout photo"
 
-  // Hide and show the rightand wrong button
+  // Hide and show the right and wrong button
   modalDivAdd.style.display='none';
   modalGallery.style.display='none';
   backModal.style.display ='initial'
@@ -119,23 +143,36 @@ async function showModalAdd (){
   preview.style.display = 'none';
 }
 
-// Manage the modal closing
+/**
+ * Close modal by setting the display to none
+ * 
+ * @returns {void}
+ */
 function closeModalFunction(){
   divModal.style.display = "none";
 }
 
-// Control if the form have all of is input complete
+/**
+ * Control form and manage disabled attribute of the valid button
+ * 
+ * @returns {void}
+ */
 function controlForm(){
   const required = modalForm.querySelectorAll('[required]')
   const requiredInput = Array.from (required).every(input=>input.value.trim() !== "");
+
   if (!requiredInput){
     modalValid.setAttribute('disabled','disabled');
   } else {
     modalValid.removeAttribute('disabled');
   }
-  console.log(requiredInput);
 }
 
+/**
+ * Control max size of th file and display the preview
+ * 
+ * @returns {void}
+ */
 function fileControlAndPreview(){  
   // Set the maximum file size
   const maxSize = 1024 * 1024 * 4;
@@ -150,7 +187,12 @@ function fileControlAndPreview(){
   };
 }
 
-// Request to add a new work
+/**
+ * Configure and send a request to add a new work.
+ * Also add a figure in both gallery
+ * 
+ * @returns {void}
+ */
 async function addRequest (){
   // Setup the body for a request API
   const formData = new FormData(modalForm);
@@ -177,7 +219,13 @@ async function addRequest (){
   }  
 }
 
-// Request to delete a work
+/**
+ * Configure and send a request to delete a work.
+ * Also remove the figure in both gallery
+ * 
+ * @param {workId} id Represent a work ID
+ * @returns {void}
+ */
 async function deleteWorks (id){
   const urlDelete = `${urlWorks}/${id}`;
   const options = {
@@ -202,13 +250,20 @@ async function deleteWorks (id){
   }
 }
 
-if (!window.location.pathname.includes('/login.html')){
+if (!window.location.pathname.includes('/login.html'))
+{
   // Show modal gallery
   openModal.addEventListener('click',  showModalGallery);
   backModal.addEventListener('click',showModalGallery);
 
   // Close modal
   closeModal.addEventListener('click', closeModalFunction);
+  document.addEventListener('click', e => {
+    if (e.target.getAttribute('rel') === 'js-modal')
+    {
+      closeModalFunction();
+    }
+  })
 
   // Show modal add work
   modalAdd.addEventListener('click',showModalAdd);
@@ -224,17 +279,4 @@ if (!window.location.pathname.includes('/login.html')){
 
   // Control and preview new work image
   fileForm.addEventListener('change',fileControlAndPreview)
-}
-
-
-export function manageModal() {
-  createModal().then(() => {
-    const trashs = document.querySelectorAll('[rel=js-modal-gallery] figure i');
-    trashs.forEach ((trash) => {   
-      trash.addEventListener('click',(e)=>{
-        const id = e.target.getAttribute('data-id');
-        deleteWorks(id,UserToken);
-    });
-    })
-  }) 
 }

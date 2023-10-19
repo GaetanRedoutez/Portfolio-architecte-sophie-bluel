@@ -1,17 +1,35 @@
-//Return data in JSON format from an API with GET method
+/**
+ * Send a fetch request to GET some data from an API
+ * 
+ * @param {api} url Represent API url 
+ * @returns {response} Return fetch response in JSON format
+ */
 export async function httpGet(url){
   const response = await fetch (url);
   return response.json();
 }
 
-//Return data in JSON format from an API with POST method
+/**
+ * Send a fetch request to POST some data to an API
+ * 
+ * @param {api} url Represent API url 
+ * @param {headers} option Represent request option to configure 
+ * @returns {response} Return fetch response in JSON format
+ */
 export async function httpPost (url,option){
-  const response = await fetch(url, option);
+  const response =  await fetch(url, option);
   return response.json();
 }
 
-//Return data from an API with DELETE method
+/**
+ * Send a fetch request to DELETE some data to an API
+ * 
+ * @param {api} url Represent API url 
+ * @param {headers} option Represent request option to configure 
+ * @returns {response} Return fetch response
+ */
 export async function httpDelete (url,option){
   const response = await fetch(url, option);
   return response;
 }
+
