@@ -25,14 +25,14 @@ const modalDivValid  = document.querySelector('[rel=js-valid-project]');
 // Retrieve log data in the session storage
 const UserToken = window.sessionStorage.getItem('userToken');
 
-// Set url to get data
-const urlWorks = 'http://localhost:5678/api/works';
+// Set url to send API request
+const urlWorks      = 'http://localhost:5678/api/works';
 const urlCategories = 'http://localhost:5678/api/categories';
 
 /**
  * Create a work in a modal
  * 
- * @param {work} data Represent a work object
+ * @param {object} data Represent a work object
  * @returns {void}
  */
 function addOneModalWork(data){
@@ -223,7 +223,7 @@ async function addRequest (){
  * Configure and send a request to delete a work.
  * Also remove the figure in both gallery
  * 
- * @param {workId} id Represent a work ID
+ * @param {number} id Represent a work ID
  * @returns {void}
  */
 async function deleteWorks (id){
@@ -250,6 +250,7 @@ async function deleteWorks (id){
   }
 }
 
+// Control location to execute this part of code
 if (!window.location.pathname.includes('/login.html'))
 {
   // Show modal gallery

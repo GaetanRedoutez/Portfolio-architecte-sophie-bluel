@@ -30,9 +30,9 @@ if (window.location.pathname.includes('/login.html')) {
 /**
  * Configure option for a login request
  * 
- * @param {Email} usr Represent user email
- * @param {Password} pwd Represent user password
- * @returns {option} Returns request option
+ * @param {string} usr Represent user email
+ * @param {string} pwd Represent user password
+ * @returns {object} Returns request option
  */
 function configLoginRequest(usr, pwd) {
   // Setup the body for a request to the login API
@@ -53,7 +53,7 @@ function configLoginRequest(usr, pwd) {
 
 /**
  * 
- * @param {UserToken} token Token returned by API
+ * @param {string} token Token returned by API
  */
 function confirmConnection(token) {
   if (token !== '' && token !== undefined) {
@@ -68,6 +68,11 @@ function confirmConnection(token) {
   }
 }
 
+/**
+ * Send login request and save user in session storage
+ * 
+ * @returns {void}
+ */
 export async function manageLogin() {
   // Submit login form
   loginForm.addEventListener("submit", async (e) => {

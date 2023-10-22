@@ -7,7 +7,7 @@ const btnapartments = document.querySelector('[rel=js-btn-apartments]');
 const btnHotels     = document.querySelector('[rel=js-btn-hotels]');
 const gallery       = document.querySelector('[rel=js-gallery]');
 
-// Didn't execute this if we're on the login page
+// Control location to execute this part of code
 if (!window.location.pathname.includes('/login.html')){
   //Detect filter button event
   btnAll.addEventListener('click', applyFilter);
@@ -19,6 +19,12 @@ if (!window.location.pathname.includes('/login.html')){
 //Set url to get works data
 const urlWorks = 'http://localhost:5678/api/works';
 
+/**
+ * Apply filter to home gallery 
+ * 
+ * @param {Event} e Represent event of a button 
+ * @returns {void} 
+*/
 async function applyFilter(e) {
   const btn = e.target;
   //Save the selected category by the filter bar
@@ -40,7 +46,7 @@ async function applyFilter(e) {
 /**
  * Create a work for home gallery
  * 
- * @param {work} data Represent a work object
+ * @param {object} data Represent a work object
  * @returns {void}
  */
 export function addOneHomeWork(data){
@@ -65,6 +71,11 @@ export function addOneHomeWork(data){
   gallery.append(figure);
 }
 
+/**
+ * Manage home gallery by calling different function
+ * 
+ * @returns {void}
+ */
 export async function manageHomeGallery() {
   //Retrieve data
   const works = await httpGet(urlWorks);

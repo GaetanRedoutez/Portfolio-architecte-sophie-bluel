@@ -2,21 +2,21 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Sophie Bluel - Architecte d'intérieur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet" />
-  <meta name="description" content="" />
-  <link rel="stylesheet" href="./assets/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+  <meta name="description" content="">
+  <link rel="stylesheet" href="./assets/style.css">
   <script src="https://kit.fontawesome.com/3a68270698.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <!-- Bar to show we're in editor mode at the top of the screen -->
   <div rel="js-editor-mode" class="editor-mode"><i class="fa-solid fa-pen-to-square"></i>Mode édition</div>
-  
+
   <header>
 
     <h1>Sophie Bluel <span>ARCHITECTE D'INTÉRIEUR</span></h1>
@@ -28,7 +28,7 @@
         <li><a href="#contact">contact</a></li>
         <li rel="js-login" class="login"><a href="login.html">login</a></li>
         <li rel="js-logout" class="logout"><a href="#">logout</a></li>
-        <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+        <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
       </ul>
     </nav>
 
@@ -38,7 +38,7 @@
     <!-- Introduction section -->
     <section id="introduction">
       <figure>
-        <img src="./assets/images/sophie-bluel.png" alt="" />
+        <img src="./assets/images/sophie-bluel.png" alt="">
       </figure>
       <article>
         <h2>Designer d'espace</h2>
@@ -47,7 +47,7 @@
         </p>
         <p>
           Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit
-          des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du
+          des lieux et le choix adnpm apté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du
           budget.
         </p>
         <p>
@@ -57,10 +57,12 @@
     </section>
 
     <!-- Modal to modify the project list -->
-    
+
     <div rel="js-modal" class="modal">
       <div class="modal-container">
-        <div class="close-modal"><p rel="js-close-modal">&times;</p></div>
+        <div class="close-modal">
+          <p rel="js-close-modal">&times;</p>
+        </div>
         <div rel="js-back-modal" class="back-modal"><i class="fa-solid fa-left-long fa-2xl"></i></div>
         <div rel="js-modal-title" class="modal-title"></div>
         <div rel="js-modal-content" class="modal-content">
@@ -69,28 +71,30 @@
             <div class="form-image">
               <div rel="js-before-preview" class="before-preview">
                 <div class="preview-image"><i class="fa-regular fa-image fa-5x"></i></div>
-                <label for="image"><p class="form-image-add">+ Ajouter une photo</p></label>
+                <label for="image">
+                  <p class="form-image-add">+ Ajouter une photo</p>
+                </label>
                 <p>jpg, png : 4mo max</p>
               </div>
               <label for="image">
                 <img rel="js-preview" class="preview" src="" alt="">
               </label>
             </div>
-            <input rel="js-input-file" type="file" name="image" accept="image/png, image/jpeg" id="image" required/>
+            <input rel="js-input-file" type="file" name="image" accept="image/png, image/jpeg" id="image" required>
             <label for="title" class="form-label">Titre</label>
             <input rel="js-input-name" type="text" name="title" id="title" required>
             <label for="category" class="form-label">Catégorie</label>
             <select rel="js-input-category" name="category" id="category" required></select>
             </input>
             <div rel="js-valid-project" class="valid-project">
-              <button rel="js-btn-valid-project" type="submit" class="btn-valid-project"  disabled="disabled">Valider</button>
+              <button rel="js-btn-valid-project" type="submit" class="btn-valid-project" disabled="disabled">Valider</button>
             </div>
           </form>
         </div>
         <div rel="js-add-project" class="add-project">
           <button class="btn-add-project" rel="js-btn-add-project">Ajouter une photo</button>
         </div>
-        
+
       </div>
     </div>
 
@@ -119,12 +123,12 @@
       <p>Vous avez un projet ? Discutons-en !</p>
       <form action="#" method="post">
         <label for="name">Nom</label>
-        <input type="text" name="name" id="name" />
+        <input type="text" name="name" id="name">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" />
+        <input type="email" name="email" id="email">
         <label for="message">Message</label>
         <textarea name="message" id="message" cols="30" rows="10"></textarea>
-        <input type="submit" value="Envoyer" />
+        <input type="submit" value="Envoyer">
       </form>
     </section>
 
