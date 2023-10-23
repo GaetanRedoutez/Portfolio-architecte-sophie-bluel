@@ -16,6 +16,7 @@ const categoriesForm = document.querySelector('[rel=js-input-category]');
 
 const beforePreview  = document.querySelector('[rel=js-before-preview]');
 const preview        = document.querySelector('[rel=js-preview]');
+const previewTooltip = document.querySelector('[rel=js-preview-tooltip]');
 
 const modalAdd       = document.querySelector('[rel=js-btn-add-project]');
 const modalDivAdd    = document.querySelector('[rel=js-add-project]');
@@ -281,3 +282,19 @@ if (!window.location.pathname.includes('/login.html'))
   // Control and preview new work image
   fileForm.addEventListener('change',fileControlAndPreview)
 }
+
+// Tooltip when hover preview image
+preview.addEventListener('mouseover', (e) => {
+  previewTooltip.style.display = 'block';
+  previewTooltip.style.left = e.pageX + 'px';
+  previewTooltip.style.top = e.pageY + 'px';
+});
+
+preview.addEventListener('mousemove', (e) => {
+  previewTooltip.style.left = e.pageX + 'px';
+  previewTooltip.style.top = e.pageY + 'px';
+});
+
+preview.addEventListener('mouseout', () => {
+  previewTooltip.style.display = 'none';
+});
