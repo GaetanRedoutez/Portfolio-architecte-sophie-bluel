@@ -37,8 +37,8 @@ if (window.location.pathname.includes('/login.html')) {
 function configLoginRequest(usr, pwd) {
   // Setup the body for a request to the login API
   const bodyRequest = JSON.stringify({
-    email: usr, //sophie.bluel@test.tld
-    password: pwd, //S0phie
+    email: usr,
+    password: pwd,
   });
 
   // Setup the request options for a login request

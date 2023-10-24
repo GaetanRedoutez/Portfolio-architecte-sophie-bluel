@@ -197,7 +197,7 @@ function fileControlAndPreview(){
 async function addRequest (){
   // Setup the body for a request API
   const formData = new FormData(modalForm);
-
+  console.log(formData);
   // Convert the category value in integer
   formData.set('category',parseInt(categoriesForm.value));
 
@@ -281,20 +281,21 @@ if (!window.location.pathname.includes('/login.html'))
 
   // Control and preview new work image
   fileForm.addEventListener('change',fileControlAndPreview)
+
+  
+  // Tooltip when hover preview image
+  preview.addEventListener('mouseover', (e) => {
+    previewTooltip.style.display = 'block';
+    previewTooltip.style.left = e.pageX + 'px';
+    previewTooltip.style.top = e.pageY + 'px';
+  });
+
+  preview.addEventListener('mousemove', (e) => {
+    previewTooltip.style.left = e.pageX + 'px';
+    previewTooltip.style.top = e.pageY + 'px';
+  });
+
+  preview.addEventListener('mouseout', () => {
+    previewTooltip.style.display = 'none';
+  });
 }
-
-// Tooltip when hover preview image
-preview.addEventListener('mouseover', (e) => {
-  previewTooltip.style.display = 'block';
-  previewTooltip.style.left = e.pageX + 'px';
-  previewTooltip.style.top = e.pageY + 'px';
-});
-
-preview.addEventListener('mousemove', (e) => {
-  previewTooltip.style.left = e.pageX + 'px';
-  previewTooltip.style.top = e.pageY + 'px';
-});
-
-preview.addEventListener('mouseout', () => {
-  previewTooltip.style.display = 'none';
-});
