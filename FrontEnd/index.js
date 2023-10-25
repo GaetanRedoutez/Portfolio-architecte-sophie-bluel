@@ -7,9 +7,9 @@ const userConnected = window.sessionStorage.getItem("userId");
 
 //Find HTML Node
 const editorMode = document.querySelector("[rel=js-editor-mode]");
-const navLogout = document.querySelector("[rel=js-logout]");
-const navLogin = document.querySelector("[rel=js-login]");
-const btnModal = document.querySelector("[rel=js-open-modal]");
+const navLogout  = document.querySelector("[rel=js-logout]");
+const navLogin   = document.querySelector("[rel=js-login]");
+const btnModal   = document.querySelector("[rel=js-open-modal]");
 
 // Control location to execute this part of code
 if (window.location.pathname.includes('/login.html')){

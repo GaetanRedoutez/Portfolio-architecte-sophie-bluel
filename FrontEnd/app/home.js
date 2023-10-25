@@ -3,7 +3,7 @@ import { httpGet } from "./request.js";
 //Find HTML Node
 const btnAll        = document.querySelector('[rel=js-btn-all]');
 const btnObject     = document.querySelector('[rel=js-btn-object]');
-const btnapartments = document.querySelector('[rel=js-btn-apartments]');
+const btnApartments = document.querySelector('[rel=js-btn-apartments]');
 const btnHotels     = document.querySelector('[rel=js-btn-hotels]');
 const gallery       = document.querySelector('[rel=js-gallery]');
 
@@ -12,7 +12,7 @@ if (!window.location.pathname.includes('/login.html')){
   //Detect filter button event
   btnAll.addEventListener('click', applyFilter);
   btnObject.addEventListener('click', applyFilter);
-  btnapartments.addEventListener('click', applyFilter);
+  btnApartments.addEventListener('click', applyFilter);
   btnHotels.addEventListener('click',applyFilter);
 }
 

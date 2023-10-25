@@ -14,11 +14,17 @@ export async function httpGet(url) {
  * 
  * @param {string} url Represent API url 
  * @param {object} option Represent request option to configure 
- * @returns {JSON} Return fetch response in JSON format
+ * @returns {any} Return fetch response. Can be JSON or false
  */
 export async function httpPost(url, option) {
   const response = await fetch(url, option);
-  return response.json();
+  console.log(response);
+  if (response.status === 200 || response.status === 201){
+    return response.json();
+  } else {
+    return false;
+  }
+  
 }
 
 /**
@@ -26,10 +32,14 @@ export async function httpPost(url, option) {
  * 
  * @param {string} url Represent API url 
  * @param {object} option Represent request option to configure 
- * @returns {object} Return fetch response
+ * @returns {any} Return fetch response. Can be object or false
  */
 export async function httpDelete(url, option) {
   const response = await fetch(url, option);
-  return response;
+  if (response.status === 204){
+    return response;
+  } else {
+    return false;
+  }
 }
 

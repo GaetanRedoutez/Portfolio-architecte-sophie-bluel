@@ -106,9 +106,9 @@ function showModalGallery() {
   divModal.style.display = "initial";
   
   //Modify title to the second part
-  modalTitle.innerHTML = "Gallerie photo"
+  modalTitle.innerHTML = "Galerie photo"
   
-  // Hide and show the rightand wrong button
+  // Hide and show the right and wrong button
   modalDivAdd.style.display='flex';
   modalGallery.style.display='grid';
   backModal.style.display ='none'
@@ -139,6 +139,7 @@ async function showModalAdd (){
   // Reset form when go on page
   modalForm.reset();
   preview.src = "";
+  modalValid.setAttribute('disabled','disabled');
   
   beforePreview.style.display = 'flex';
   preview.style.display = 'none';
@@ -170,7 +171,7 @@ function controlForm(){
 }
 
 /**
- * Control max size of th file and display the preview
+ * Control max size of the file and display the preview
  * 
  * @returns {void}
  */
@@ -197,7 +198,6 @@ function fileControlAndPreview(){
 async function addRequest (){
   // Setup the body for a request API
   const formData = new FormData(modalForm);
-  console.log(formData);
   // Convert the category value in integer
   formData.set('category',parseInt(categoriesForm.value));
 
@@ -213,10 +213,13 @@ async function addRequest (){
   // If valid the new project then launch the request, else go out of the function
   if (confirm("Confirmer ajout du projet " + formData.get('title'))) {
     const response = await httpPost(urlWorks,option);
-    console.log(response);
-    addOneModalWork(response);
-    addOneHomeWork(response);
-    showModalGallery();
+    if (response !== false){
+      addOneModalWork(response);
+      addOneHomeWork(response);
+      showModalGallery();
+    } else{
+      alert ("Échec de l'ajout du projet");
+    }
   }  
 }
 
@@ -237,18 +240,34 @@ async function deleteWorks (id){
     }
   };
 
-  if (confirm("Confirmer surppression du projet " + id)) {
+  if (confirm("Confirmer surpression du projet " + id)) {
     // Delete work in API
     const response = await httpDelete(urlDelete,options);
     
     // If request ok remove figure in home and modal
-    if (response.status === 204){
+    if (response !== false){
       const figuresToRemove = document.querySelectorAll(`[rel=js-work-${id}]`);
       figuresToRemove.forEach((figure)=>{
         figure.remove();
       });
+    } else{
+      alert ("Échec de la suppression du projet");
     }
   }
+}
+
+/**
+ * Position of the preview tooltip
+ * 
+ * @param {Event} e Mouse event to catch mouse position
+ */
+function updateTooltipPosition(e) {
+  const leftPosition = e.pageX + 10;
+  const topPosition  = e.pageY - window.scrollY; 
+
+
+  previewTooltip.style.left = leftPosition + 'px';
+  previewTooltip.style.top  = topPosition + 'px';
 }
 
 // Control location to execute this part of code
@@ -281,21 +300,23 @@ if (!window.location.pathname.includes('/login.html'))
 
   // Control and preview new work image
   fileForm.addEventListener('change',fileControlAndPreview)
-
   
   // Tooltip when hover preview image
   preview.addEventListener('mouseover', (e) => {
     previewTooltip.style.display = 'block';
-    previewTooltip.style.left = e.pageX + 'px';
-    previewTooltip.style.top = e.pageY + 'px';
+    updateTooltipPosition(e);
   });
 
-  preview.addEventListener('mousemove', (e) => {
-    previewTooltip.style.left = e.pageX + 'px';
-    previewTooltip.style.top = e.pageY + 'px';
-  });
+  preview.addEventListener('mousemove', updateTooltipPosition);
 
   preview.addEventListener('mouseout', () => {
     previewTooltip.style.display = 'none';
+  });
+
+  // Gestionnaire de défilement de la fenêtre
+  window.addEventListener('scroll', () => {
+    if (previewTooltip.style.display === 'block') {
+      updateTooltipPosition(e);
+    }
   });
 }

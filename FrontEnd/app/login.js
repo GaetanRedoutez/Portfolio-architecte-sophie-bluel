@@ -1,11 +1,11 @@
 import { httpPost } from "./request.js";
 
 //Find HTML Node
-const loginForm = document.querySelector("[rel=js-login-form]");
+const loginForm     = document.querySelector("[rel=js-login-form]");
 const inputUsername = document.querySelector("[rel=js-username]");
 const inputPassword = document.querySelector("[rel=js-password]");
-const loginStatus = document.querySelector("[rel=js-login-status] p");
-const logout = document.querySelector("[rel=js-logout]");
+const loginStatus   = document.querySelector("[rel=js-login-status] p");
+const logout        = document.querySelector("[rel=js-logout]");
 
 // Setup the url to access the login API
 const urlLogin = "http://localhost:5678/api/users/login";
@@ -52,23 +52,6 @@ function configLoginRequest(usr, pwd) {
 }
 
 /**
- * 
- * @param {string} token Token returned by API
- */
-function confirmConnection(token) {
-  if (token !== '' && token !== undefined) {
-    loginStatus.innerHTML = "Connecté";
-    loginStatus.style.color = "green";
-    setTimeout(() => {
-      window.location.href = "./index.html"
-    }, 500);
-  } else {
-    loginStatus.innerHTML = "Nom d'utilisateur ou mot de passe erroné";
-    loginStatus.style.color = "red";
-  }
-}
-
-/**
  * Send login request and save user in session storage
  * 
  * @returns {void}
@@ -85,17 +68,33 @@ export async function manageLogin() {
     const loginOption = configLoginRequest(username, password);
     const logResponse = await httpPost(urlLogin, loginOption);
 
-    //Set session storage with user data
-    window.sessionStorage.setItem("userId", logResponse.userId);
-    window.sessionStorage.setItem("userToken", logResponse.token);
-
     //Connection status
-    confirmConnection(logResponse.token);
+    confirmConnection(logResponse);
   });
 }
 
+/**
+ * 
+ * @param {any} response Token returned by API
+ */
+function confirmConnection(response) {
+  if (response !== false) {
+    loginStatus.innerHTML = "Connecté";
+    loginStatus.style.color = "green";
+    //Set session storage with user data
+    window.sessionStorage.setItem("userId", response.userId);
+    window.sessionStorage.setItem("userToken", response.token);
+    setTimeout(() => {
+      window.location.href = "./index.html"
+    }, 500);
+  } else {
+    loginStatus.innerHTML = "Nom d'utilisateur ou mot de passe erroné";
+    loginStatus.style.color = "red";
+  }
+}
 
-//Simul logout 
+
+//Simulation logout 
 logout.addEventListener('click', async (e) => {
   e.preventDefault();
   //Reset sessionStorage
