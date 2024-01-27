@@ -2,32 +2,32 @@ import { addOneHomeWork } from './home.js';
 import { httpDelete, httpGet, httpPost } from './request.js';
 
 //Find HTML Node
-const openModal      = document.querySelector('[rel=js-open-modal]');
-const closeModal     = document.querySelector('[rel=js-close-modal]');
-const backModal      = document.querySelector('[rel=js-back-modal]');
+const openModal = document.querySelector('[rel=js-open-modal]');
+const closeModal = document.querySelector('[rel=js-close-modal]');
+const backModal = document.querySelector('[rel=js-back-modal]');
 
-const divModal       = document.querySelector('[rel=js-modal]');
-const modalTitle     = document.querySelector('[rel=js-modal-title]');
-const modalGallery   = document.querySelector('[rel=js-modal-gallery]');
+const divModal = document.querySelector('[rel=js-modal]');
+const modalTitle = document.querySelector('[rel=js-modal-title]');
+const modalGallery = document.querySelector('[rel=js-modal-gallery]');
 
-const modalForm      = document.querySelector('[rel=js-modal-content] form');
-const fileForm       = document.querySelector('[rel=js-input-file]');
+const modalForm = document.querySelector('[rel=js-modal-content] form');
+const fileForm = document.querySelector('[rel=js-input-file]');
 const categoriesForm = document.querySelector('[rel=js-input-category]');
 
-const beforePreview  = document.querySelector('[rel=js-before-preview]');
-const preview        = document.querySelector('[rel=js-preview]');
+const beforePreview = document.querySelector('[rel=js-before-preview]');
+const preview = document.querySelector('[rel=js-preview]');
 const previewTooltip = document.querySelector('[rel=js-preview-tooltip]');
 
-const modalAdd       = document.querySelector('[rel=js-btn-add-project]');
-const modalDivAdd    = document.querySelector('[rel=js-add-project]');
-const modalValid     = document.querySelector('[rel=js-btn-valid-project]');
-const modalDivValid  = document.querySelector('[rel=js-valid-project]');
+const modalAdd = document.querySelector('[rel=js-btn-add-project]');
+const modalDivAdd = document.querySelector('[rel=js-add-project]');
+const modalValid = document.querySelector('[rel=js-btn-valid-project]');
+const modalDivValid = document.querySelector('[rel=js-valid-project]');
 
 // Retrieve log data in the session storage
 const UserToken = window.sessionStorage.getItem('userToken');
 
 // Set url to send API request
-const urlWorks      = 'http://localhost:5678/api/works';
+const urlWorks = 'http://localhost:5678/api/works';
 const urlCategories = 'http://localhost:5678/api/categories';
 
 /**
@@ -36,29 +36,29 @@ const urlCategories = 'http://localhost:5678/api/categories';
  * @param {object} data Represent a work object
  * @returns {void}
  */
-function addOneModalWork(data){
-  //Set the image parameter
-  const image = document.createElement('img');
-        image.src = data.imageUrl;
-        image.alt = data.title;
+function addOneModalWork(data) {
+    //Set the image parameter
+    const image = document.createElement('img');
+    image.src = data.imageUrl;
+    image.alt = data.title;
 
-  //Set the trash icon from Font Awesome
-  const trash = document.createElement('i')
-        trash.className = "fa-solid fa-trash-can"
-        trash.dataset.id = data.id;
-    
-  //Set the category and link image and caption to the figure
-  const figure = document.createElement('figure');
-        figure.setAttribute('rel',`js-work-${data.id}`);
-        figure.append(image);
-        figure.append(trash);
+    //Set the trash icon from Font Awesome
+    const trash = document.createElement('i')
+    trash.className = "fa-solid fa-trash-can"
+    trash.dataset.id = data.id;
 
-  modalGallery.append(figure);
+    //Set the category and link image and caption to the figure
+    const figure = document.createElement('figure');
+    figure.setAttribute('rel', `js-work-${data.id}`);
+    figure.append(image);
+    figure.append(trash);
 
-  trash.addEventListener('click', e => {
-    const id = e.target.getAttribute('data-id');
-    deleteWorks(id,UserToken);
-  })
+    modalGallery.append(figure);
+
+    trash.addEventListener('click', e => {
+        const id = e.target.getAttribute('data-id');
+        deleteWorks(id, UserToken);
+    })
 }
 
 /**
@@ -66,34 +66,34 @@ function addOneModalWork(data){
  * 
  * @returns {void}
  */
-export async function createModal (){  
-  // Retrieve works data
-  const works = await httpGet(urlWorks);
+export async function createModal() {
+    // Retrieve works data
+    const works = await httpGet(urlWorks);
 
-  // Create all the figure for modal gallery
-  Array.from (works,work => {
-    addOneModalWork(work);
-  } )
+    // Create all the figure for modal gallery
+    Array.from(works, work => {
+        addOneModalWork(work);
+    })
 
-  //Clear the list of category
-  categoriesForm.innerHTML = "";
+    //Clear the list of category
+    categoriesForm.innerHTML = "";
 
-  const chooseOption = document.createElement('option');
-        chooseOption.innerHTML = "";
+    const chooseOption = document.createElement('option');
+    chooseOption.innerHTML = "";
 
-  categoriesForm.append(chooseOption);
+    categoriesForm.append(chooseOption);
 
-  //Retrieve categories data
-  const categories = await httpGet(urlCategories);
+    //Retrieve categories data
+    const categories = await httpGet(urlCategories);
 
-  //Create a list of category
-  Array.from (categories, category =>{
-  const option = document.createElement('option');
+    //Create a list of category
+    Array.from(categories, category => {
+        const option = document.createElement('option');
         option.innerHTML = category.name;
         option.value = category.id;
 
-  categoriesForm.append(option)
-  } )
+        categoriesForm.append(option)
+    })
 }
 
 /**
@@ -102,18 +102,18 @@ export async function createModal (){
  * @returns {void}
  */
 function showModalGallery() {
-  //Display the modal 
-  divModal.style.display = "initial";
-  
-  //Modify title to the second part
-  modalTitle.innerHTML = "Galerie photo"
-  
-  // Hide and show the right and wrong button
-  modalDivAdd.style.display='flex';
-  modalGallery.style.display='grid';
-  backModal.style.display ='none'
-  modalDivValid.style.display ='none';
-  modalForm.style.display ='none';
+    //Display the modal 
+    divModal.style.display = "initial";
+
+    //Modify title to the second part
+    modalTitle.innerHTML = "Galerie photo"
+
+    // Hide and show the right and wrong button
+    modalDivAdd.style.display = 'flex';
+    modalGallery.style.display = 'grid';
+    backModal.style.display = 'none'
+    modalDivValid.style.display = 'none';
+    modalForm.style.display = 'none';
 
 }
 
@@ -122,27 +122,27 @@ function showModalGallery() {
  * 
  * @returns {void}
  */
-async function showModalAdd (){
-  // Reset the form
-  modalForm.reset();
+async function showModalAdd() {
+    // Reset the form
+    modalForm.reset();
 
-  //Modify title to the second part
-  modalTitle.innerHTML = "Ajout photo"
+    //Modify title to the second part
+    modalTitle.innerHTML = "Ajout photo"
 
-  // Hide and show the right and wrong button
-  modalDivAdd.style.display='none';
-  modalGallery.style.display='none';
-  backModal.style.display ='initial'
-  modalDivValid.style.display ='flex';
-  modalForm.style.display ='flex';
+    // Hide and show the right and wrong button
+    modalDivAdd.style.display = 'none';
+    modalGallery.style.display = 'none';
+    backModal.style.display = 'initial'
+    modalDivValid.style.display = 'flex';
+    modalForm.style.display = 'flex';
 
-  // Reset form when go on page
-  modalForm.reset();
-  preview.src = "";
-  modalValid.setAttribute('disabled','disabled');
-  
-  beforePreview.style.display = 'flex';
-  preview.style.display = 'none';
+    // Reset form when go on page
+    modalForm.reset();
+    preview.src = "";
+    modalValid.setAttribute('disabled', 'disabled');
+
+    beforePreview.style.display = 'flex';
+    preview.style.display = 'none';
 }
 
 /**
@@ -150,8 +150,8 @@ async function showModalAdd (){
  * 
  * @returns {void}
  */
-function closeModalFunction(){
-  divModal.style.display = "none";
+function closeModalFunction() {
+    divModal.style.display = "none";
 }
 
 /**
@@ -159,15 +159,15 @@ function closeModalFunction(){
  * 
  * @returns {void}
  */
-function controlForm(){
-  const required = modalForm.querySelectorAll('[required]')
-  const requiredInput = Array.from (required).every(input=>input.value.trim() !== "");
+function controlForm() {
+    const required = modalForm.querySelectorAll('[required]')
+    const requiredInput = Array.from(required).every(input => input.value.trim() !== "");
 
-  if (!requiredInput){
-    modalValid.setAttribute('disabled','disabled');
-  } else {
-    modalValid.removeAttribute('disabled');
-  }
+    if (!requiredInput) {
+        modalValid.setAttribute('disabled', 'disabled');
+    } else {
+        modalValid.removeAttribute('disabled');
+    }
 }
 
 /**
@@ -175,18 +175,18 @@ function controlForm(){
  * 
  * @returns {void}
  */
-function fileControlAndPreview(){  
-  // Set the maximum file size
-  const maxSize = 1024 * 1024 * 4;
+function fileControlAndPreview() {
+    // Set the maximum file size
+    const maxSize = 1024 * 1024 * 4;
 
-  // Alert is file size is too big
-  if (fileForm.files[0].size > maxSize){
-    alert('La taille du fichier dépasse la limite autorisé');
-  } else {
-    preview.src = URL.createObjectURL(fileForm.files[0]);
-    beforePreview.style.display = 'none';
-    preview.style.display = 'block';
-  };
+    // Alert is file size is too big
+    if (fileForm.files[0].size > maxSize) {
+        alert('La taille du fichier dépasse la limite autorisé');
+    } else {
+        preview.src = URL.createObjectURL(fileForm.files[0]);
+        beforePreview.style.display = 'none';
+        preview.style.display = 'block';
+    };
 }
 
 /**
@@ -195,32 +195,33 @@ function fileControlAndPreview(){
  * 
  * @returns {void}
  */
-async function addRequest (){
-  // Setup the body for a request API
-  const formData = new FormData(modalForm);
-  // Convert the category value in integer
-  formData.set('category',parseInt(categoriesForm.value));
+async function addRequest() {
+    // Setup the body for a request API
+    const formData = new FormData(modalForm);
+    // Convert the category value in integer
+    formData.set('category', parseInt(categoriesForm.value));
 
-  // Setup the request options for add request
-  const option = {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${UserToken}`,
-    },
-    body: formData,
-  };
+    console.log(formData);
+    // Setup the request options for add request
+    const option = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${UserToken}`,
+        },
+        body: formData,
+    };
 
-  // If valid the new project then launch the request, else go out of the function
-  if (confirm("Confirmer ajout du projet " + formData.get('title'))) {
-    const response = await httpPost(urlWorks,option);
-    if (response !== false){
-      addOneModalWork(response);
-      addOneHomeWork(response);
-      showModalGallery();
-    } else{
-      alert ("Échec de l'ajout du projet");
+    // If valid the new project then launch the request, else go out of the function
+    if (confirm("Confirmer ajout du projet " + formData.get('title'))) {
+        const response = await httpPost(urlWorks, option);
+        if (response !== false) {
+            addOneModalWork(response);
+            addOneHomeWork(response);
+            showModalGallery();
+        } else {
+            alert("Échec de l'ajout du projet");
+        }
     }
-  }  
 }
 
 /**
@@ -230,30 +231,30 @@ async function addRequest (){
  * @param {number} id Represent a work ID
  * @returns {void}
  */
-async function deleteWorks (id){
-  const urlDelete = `${urlWorks}/${id}`;
-  const options = {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${UserToken}`,
-    }
-  };
+async function deleteWorks(id) {
+    const urlDelete = `${urlWorks}/${id}`;
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${UserToken}`,
+        }
+    };
 
-  if (confirm("Confirmer surpression du projet " + id)) {
-    // Delete work in API
-    const response = await httpDelete(urlDelete,options);
-    
-    // If request ok remove figure in home and modal
-    if (response !== false){
-      const figuresToRemove = document.querySelectorAll(`[rel=js-work-${id}]`);
-      figuresToRemove.forEach((figure)=>{
-        figure.remove();
-      });
-    } else{
-      alert ("Échec de la suppression du projet");
+    if (confirm("Confirmer surpression du projet " + id)) {
+        // Delete work in API
+        const response = await httpDelete(urlDelete, options);
+
+        // If request ok remove figure in home and modal
+        if (response !== false) {
+            const figuresToRemove = document.querySelectorAll(`[rel=js-work-${id}]`);
+            figuresToRemove.forEach((figure) => {
+                figure.remove();
+            });
+        } else {
+            alert("Échec de la suppression du projet");
+        }
     }
-  }
 }
 
 /**
@@ -262,61 +263,59 @@ async function deleteWorks (id){
  * @param {Event} e Mouse event to catch mouse position
  */
 function updateTooltipPosition(e) {
-  const leftPosition = e.pageX + 10;
-  const topPosition  = e.pageY - window.scrollY; 
+    const leftPosition = e.pageX + 10;
+    const topPosition = e.pageY - window.scrollY;
 
 
-  previewTooltip.style.left = leftPosition + 'px';
-  previewTooltip.style.top  = topPosition + 'px';
+    previewTooltip.style.left = leftPosition + 'px';
+    previewTooltip.style.top = topPosition + 'px';
 }
 
 // Control location to execute this part of code
-if (!window.location.pathname.includes('/login.html'))
-{
-  // Show modal gallery
-  openModal.addEventListener('click',  showModalGallery);
-  backModal.addEventListener('click',showModalGallery);
+if (!window.location.pathname.includes('/login.html')) {
+    // Show modal gallery
+    openModal.addEventListener('click', showModalGallery);
+    backModal.addEventListener('click', showModalGallery);
 
-  // Close modal
-  closeModal.addEventListener('click', closeModalFunction);
-  document.addEventListener('click', e => {
-    if (e.target.getAttribute('rel') === 'js-modal')
-    {
-      closeModalFunction();
-    }
-  })
+    // Close modal
+    closeModal.addEventListener('click', closeModalFunction);
+    document.addEventListener('click', e => {
+        if (e.target.getAttribute('rel') === 'js-modal') {
+            closeModalFunction();
+        }
+    })
 
-  // Show modal add work
-  modalAdd.addEventListener('click',showModalAdd);
+    // Show modal add work
+    modalAdd.addEventListener('click', showModalAdd);
 
-  // Control form
-  modalForm.addEventListener('input',controlForm);
+    // Control form
+    modalForm.addEventListener('input', controlForm);
 
-  // Valid form and add new work
-  modalValid.addEventListener('click', (e)=>{
-    e.preventDefault();
-    addRequest ();
-  })
+    // Valid form and add new work
+    modalValid.addEventListener('click', (e) => {
+        e.preventDefault();
+        addRequest();
+    })
 
-  // Control and preview new work image
-  fileForm.addEventListener('change',fileControlAndPreview)
-  
-  // Tooltip when hover preview image
-  preview.addEventListener('mouseover', (e) => {
-    previewTooltip.style.display = 'block';
-    updateTooltipPosition(e);
-  });
+    // Control and preview new work image
+    fileForm.addEventListener('change', fileControlAndPreview)
 
-  preview.addEventListener('mousemove', updateTooltipPosition);
+    // Tooltip when hover preview image
+    preview.addEventListener('mouseover', (e) => {
+        previewTooltip.style.display = 'block';
+        updateTooltipPosition(e);
+    });
 
-  preview.addEventListener('mouseout', () => {
-    previewTooltip.style.display = 'none';
-  });
+    preview.addEventListener('mousemove', updateTooltipPosition);
 
-  // Gestionnaire de défilement de la fenêtre
-  window.addEventListener('scroll', () => {
-    if (previewTooltip.style.display === 'block') {
-      updateTooltipPosition(e);
-    }
-  });
+    preview.addEventListener('mouseout', () => {
+        previewTooltip.style.display = 'none';
+    });
+
+    // Gestionnaire de défilement de la fenêtre
+    window.addEventListener('scroll', () => {
+        if (previewTooltip.style.display === 'block') {
+            updateTooltipPosition(e);
+        }
+    });
 }
